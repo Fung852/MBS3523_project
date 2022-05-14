@@ -86,27 +86,14 @@ class handDetector():
         length = math.hypot(x2 - x1, y2 - y1)
         return length, img, [x1, y1, x2, y2, cx, cy]
 
-    def fingersUp(self):
-        fingers = []
-        # Thumb
-        if self.lmList[self.tipIds[0]][1] > self.lmList[self.tipIds[0] - 1][1]:
-            fingers.append(1)
-        else:
-            fingers.append(0)
-        # 4 Fingers
-        for id in range(1, 5):
-            if self.lmList[self.tipIds[id]][2] < self.lmList[self.tipIds[id] - 2][2]:
-                fingers.append(1)
-            else:
-                fingers.append(0)
-        return fingers
+
 
 wCam, hCam = 640, 488
 
 cap = cv2.VideoCapture(0)
 cap.set(3, wCam)
 cap.set(4, hCam)
-labels = ["don","tg","fung","other"]
+labels = ["fung","nardo","other"]
 pTime = 0
 model = tf.keras.models.load_model("module/keras_model.h5", compile = False)
 faceCascade = cv2.CascadeClassifier('Resources/haarcascade_frontalface_default.xml')
